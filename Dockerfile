@@ -1,4 +1,4 @@
-FROM gcc:11.2.0
+FROM gcc:11
 
 
 RUN apt-get -qq update \
