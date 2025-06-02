@@ -86,6 +86,93 @@ namespace algebra {
         }
 
         return res;
+    }
+
+    // 标量加法 将常量 c 加到 matrix 的每个元素上。
+    Matrix sum(const Matrix& matrix, double c) {
+
+        if (matrix.empty()) {
+            return Matrix{};
+        }
+
+        size_t rows_res = matrix.size();
+        size_t cols_res = matrix[0].size();
+        Matrix res = zeros(rows_res, cols_res);
+        for (size_t i = 0; i < rows_res; i++) {
+            for (size_t j = 0; j < cols_res; j++) {
+                res[i][j] = matrix[i][j] + c;
+            }
+        }
+        return res;
 
     }
+
+    // 矩阵加法，将两个矩阵相加。
+    Matrix sum(const Matrix& matrix1, const Matrix& matrix2) {
+        // 情况1：两个都是空矩阵
+        if (matrix1.empty() && matrix2.empty()) {
+            return Matrix{};
+        }
+        // 情况2：其中一个为空，另一个非空
+        if (matrix1.empty() || matrix2.empty()) {
+            throw std::logic_error("输入矩阵维度不一致");
+        }
+        // 情况3：两个都非空但维度不匹配
+        if (matrix1.size() != matrix2.size() || matrix1[0].size() != matrix2[0].size()) {
+            throw std::logic_error("输入矩阵维度不一致");
+        }
+
+        size_t rows_res = matrix1.size();
+        size_t cols_res = matrix1[0].size();
+        Matrix res = zeros(rows_res, cols_res);
+        for (size_t i = 0; i < rows_res; i++) {
+            for (size_t j = 0; j < cols_res; j++) {
+                res[i][j] = matrix1[i][j] + matrix2[i][j];
+            }
+        }
+        return res;
+    }
+
+    // 转置矩阵
+    Matrix transpose(const Matrix& matrix) {
+        if (matrix.empty()) {
+            return Matrix{};
+        }
+
+        size_t rows_res = matrix.size();
+        size_t cols_res = matrix[0].size();
+
+        Matrix res = zeros(cols_res, rows_res);
+
+        for (size_t i = 0; i < rows_res; i++) {
+            for (size_t j = 0; j < cols_res; j++) {
+                res[j][i] = matrix[i][j];
+            }
+        }
+        return res;
+    }
+
+    // 创建输入 matrix 相对于第 n 行和第 m 列的子式矩阵
+    Matrix minor(const Matrix& matrix, size_t n, size_t m) {
+        if (matrix.empty()) {
+            return Matrix{};
+        }
+        size_t rows_res = matrix.size();
+        size_t cols_res = matrix[0].size();
+        Matrix res = zeros(rows_res - 1, cols_res - 1);
+
+        for (size_t i = 0, p = 0; i < rows_res; i++) {
+            if (i == n) continue;
+            for (size_t j = 0, q = 0; j < cols_res; j++) {
+                if (j == m) continue;
+
+                res[p][q] = matrix[i][j];
+                q++;
+
+            }
+            p++;
+        }
+        return res;
+    }
+
 }

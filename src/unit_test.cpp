@@ -110,7 +110,7 @@ TEST(HW1Test, MULTIPLY4) {
     EXPECT_NEAR(matrix[1][0], 23, 0.03);
     EXPECT_NEAR(matrix[2][0], 19.3, 0.03);
 }
-/*
+
 TEST(HW1Test, SUM1) {
     // Caution: sum of an empty matrix
     EXPECT_TRUE(algebra::sum(Matrix{}, 1.5).empty());
@@ -195,7 +195,7 @@ TEST(HW1Test, MINOR2) {
     EXPECT_DOUBLE_EQ(minor[1][0], matrix[2][0]);
     EXPECT_DOUBLE_EQ(minor[1][1], matrix[2][2]);
 }
-
+/*
 TEST(HW1Test, DETERMINANT1) {
     // Caution: determinant of an empty matrix
     EXPECT_EQ(algebra::determinant(Matrix{}), 1);
